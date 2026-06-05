@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ghamaghamayate</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #F9F9F9;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255,122,0,0.18) 0%, rgba(255,255,255,0) 70%);
+            bottom: 10%;
+            right: 20%;
+            z-index: 1;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 60px 40px;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.04);
+            text-align: center;
+            z-index: 2;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: #111;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .logout-btn {
+            padding: 10px 24px;
+            background: transparent;
+            color: #FF7A00;
+            border: 1.5px solid #FF7A00;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .logout-btn:hover {
+            background: #FF7A00;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="dashboard-card">
+        <h2>Welcome to Ghamaghamayate</h2>
+        <p>Your clean application shell is verified and ready for expansion.</p>
+        <button class="logout-btn" id="logoutBtn">Sign Out</button>
+    </div>
+
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            const response = await fetch('/api/logout', { method: 'POST' });
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = data.redirect;
+            }
+        });
+    </script>
+</body>
+</html>
